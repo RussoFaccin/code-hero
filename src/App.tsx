@@ -1,10 +1,10 @@
 import * as React from "react";
-import { Header } from "./components";
+import Routes from "./Routes";
 
 const App = (): JSX.Element => {
   return (
     <>
-      <Header />
+      <Routes />
     </>
   );
 };
