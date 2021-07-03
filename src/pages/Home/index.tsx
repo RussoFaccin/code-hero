@@ -1,13 +1,23 @@
 import * as React from "react";
 import { Header, Pagination } from "components";
-import { Container, Footer } from "./styles";
+import { Button, Container, Footer, Heading, Input, InputContainer, Label, Main, Search } from "./styles";
+import { ReactComponent as IconSearch } from "assets/icon-search.svg";
 const Home = (): JSX.Element => {
   return (
     <>
       <Header />
-      <Container>
-        <h1>Home page</h1>
-      </Container>
+      <Main>
+        <Search>
+          <Heading>Busca de personagens</Heading>
+          <Container>
+            <Label htmlFor="fld_search">Nome do personagem</Label>
+            <InputContainer>
+              <Input placeholder="Search" />
+              <Button><IconSearch /></Button>
+            </InputContainer>
+          </Container>
+        </Search>
+      </Main>
       <Footer>
         <Pagination
           qtyItems={10}

@@ -27,5 +27,6 @@ export const GlobalStyle = createGlobalStyle`
          background-color: #E5E5E5;
          display: flex;
          flex-direction: column;
+         align-items: center;
      }
 `;
