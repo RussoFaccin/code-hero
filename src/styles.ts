@@ -25,5 +25,8 @@ export const GlobalStyle = createGlobalStyle`
          height: 100%;
          overflow: hidden auto;
          background-color: #E5E5E5;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
      }
 `;
