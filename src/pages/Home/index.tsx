@@ -1,12 +1,22 @@
 import * as React from "react";
-import { Pagination } from "components";
+import { Header, Pagination } from "components";
+import { Container, Footer } from "./styles";
 const Home = (): JSX.Element => {
   return (
     <>
-      <h1>Home page</h1>
-      <Pagination qtyItems={10} limit={3} onChange={(n) => console.log("PAGE", n)} />
+      <Header />
+      <Container>
+        <h1>Home page</h1>
+      </Container>
+      <Footer>
+        <Pagination
+          qtyItems={10}
+          limit={3}
+          onChange={(n) => console.log("PAGE", n)}
+        />
+      </Footer>
     </>
-    );
+  );
 };
 
 export default Home;
