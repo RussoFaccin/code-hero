@@ -12,8 +12,11 @@ export const useAppContext = (): ContextType => {
  * AppProvider component
  */
 const AppProvider = ({ children }: Props): JSX.Element => {
+  console.log("State changed");
+  
   const [data, setData] = useState<Character[]>([]);
   const [currPage, setCurrPage] = useState(1);
+  const [offset, setOffset] = useState(0);
 
   return (
     <AppContext.Provider
@@ -21,9 +24,11 @@ const AppProvider = ({ children }: Props): JSX.Element => {
         data,
         currPage,
         limit: Number(process.env.REACT_APP_ITEMS_PER_PAGE),
+        offset,
         actions: {
           setData,
           setCurrPage,
+          setOffset
         },
       }}
     >
