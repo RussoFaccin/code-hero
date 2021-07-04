@@ -1,6 +1,7 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { BreakPoints, Colors } from "shared/enum";
+import { hideText } from "shared/styles";
 import { ReactComponent as Brand } from "assets/logoObjective.svg";
 
 export const Container = styled.header`
@@ -20,14 +21,6 @@ export const BrandLink = styled(Link)`
 export const Logo = styled(Brand)`
   width: auto;
   height: 24px;
-`;
-
-const hideText = css`
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
 `;
 
 export const BrandHeading = styled.h1`
