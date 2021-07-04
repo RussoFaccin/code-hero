@@ -26,12 +26,15 @@ export const Api = {
    * Get character by name
    */
   async getCharacter(name: string, limit = 10, offset = 10): Promise<any> {
-    if (!name || name === "") {
-      throw new Error("Parâmetro <name> obrigatório");
+    let param = ``;
+    
+    if (name && name !== "") {
+      param = `nameStartsWith=${name}`;
     }
+
     try {
       const response = await fetch(
-        `${this._API_URL}characters?nameStartsWith=${name}&limit=${limit}&offset=${offset}&apikey=${this._API_KEY}`
+        `${this._API_URL}characters?${param}&limit=${limit}&offset=${offset}&apikey=${this._API_KEY}`
       );
 
       const result = await response.json();

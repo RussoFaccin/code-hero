@@ -21,6 +21,7 @@ const Pagination = ({
   const [limit, setLimit] = useState(3);
   const [offset, setOffset] = useState(0);
   const [currPage, setCurrPage] = useState(activePage);
+  const [isMounted, setMounted] = useState(true);
 
   const fillPages = useCallback(() => {
     const pageList = Array(qtyItems)
@@ -53,8 +54,11 @@ const Pagination = ({
 
   const calculateLimit = useCallback(() => {
     const tmpLimit = window.innerWidth >= 768 ? 5 : 3;
-    setLimit(tmpLimit);
-    setOffset(Math.ceil(currPage / tmpLimit) - 1);
+
+    if (isMounted) {
+      setLimit(tmpLimit);
+      setOffset(Math.ceil(currPage / tmpLimit) - 1);
+    }
   }, [currPage]);
 
   const pages = fillPages();
@@ -74,7 +78,11 @@ const Pagination = ({
 
   useEffect(() => {
     calculateLimit();
-    window.addEventListener("resize", calculateLimit)
+    window.addEventListener("resize", calculateLimit);
+
+    return function cleanUp() {
+      setMounted(false);
+    };
   }, [limit]);
 
   useEffect(() => {
