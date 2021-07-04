@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Api, Data } from "services";
 import { Character, Comic } from "shared/types";
-import { ComicCard, FlatList, Header } from "components";
+import { ComicCard, FlatList, Header, Loading } from "components";
 import { ComicSection, ComicList, Heading, Main, Thumb } from "./styles";
 
 /**
@@ -12,11 +12,14 @@ const Characters = (): JSX.Element => {
   const { id } = useParams<{ id: string }>();
   const [character, setCharacter] = useState<Character>({} as Character);
   const [comicList, setComicList] = useState<Comic[]>([]);
+  const [isLoading, setLoading] = useState(false);
 
   /**
    * Fetch character from Api
    */
   const getCharacter = useCallback(async () => {
+    setLoading(true);
+    
     const { results: data } = await Api.getCharacterById(id);
     const [character] = Data.formatData(data);
     setCharacter(character);
@@ -28,6 +31,8 @@ const Characters = (): JSX.Element => {
   const getComics = useCallback(async () => {
     const { results } = await Api.getComics(id);
     setComicList(Data.formatComicData(results));
+
+    setLoading(false);
   }, [id]);
 
   const renderCardItem = useCallback((card: Comic, index: number) => {
@@ -52,6 +57,7 @@ const Characters = (): JSX.Element => {
           </ComicList>
         </ComicSection>
       </Main>
+      <Loading isActive={isLoading} />
     </>
   );
 };
