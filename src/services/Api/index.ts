@@ -23,7 +23,24 @@ export const Api = {
       const response = await fetch(
         `${this._API_URL}characters?nameStartsWith=${name}&limit=${limit}&offset=${offset}&apikey=${this._API_KEY}`
       );
-      
+
+      const result = await response.json();
+
+      if (response.ok) {
+        return result.data;
+      } else {
+        throw new Error(result.message);
+      }
+    } catch (err) {
+      return [];
+    }
+  },
+  async getCharacterById(id: number | string) {
+    try {
+      const response = await fetch(
+        `${this._API_URL}characters/${id}?apikey=${this._API_KEY}`
+      );
+
       const result = await response.json();
 
       if (response.ok) {
