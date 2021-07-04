@@ -1,6 +1,7 @@
 import * as React from "react";
 import { render, RenderResult } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import { AppProvider } from "contexts";
 import Header from "./";
 
 describe("Header components", () => {
@@ -8,9 +9,11 @@ describe("Header components", () => {
 
   beforeEach(() => {
     utils = render(
-      <MemoryRouter>
-        <Header />
-      </MemoryRouter>
+      <AppProvider>
+        <MemoryRouter>
+          <Header />
+        </MemoryRouter>
+      </AppProvider>
     );
   });
 
