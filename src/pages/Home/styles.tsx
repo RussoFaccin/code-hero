@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { BreakPoints, Colors } from "shared/enum";
 
 export const Main = styled.main`
@@ -23,7 +23,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Search = styled.div`
+export const Search = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -65,7 +65,7 @@ export const InputContainer = styled.div`
   align-items: center;
 
   @media screen and (min-width: ${BreakPoints.TABLET}) {
-      width: auto;
+    width: auto;
   }
 `;
 
@@ -96,6 +96,50 @@ export const Button = styled.button`
   right: 16px;
   border: 0;
   background-color: transparent;
+`;
+
+export const CharacterList = styled.div`
+  margin-top: 32px;
+
+  @media screen and (min-width: ${BreakPoints.TABLET}) {
+    margin-top: 40px;
+  }
+`;
+
+const HeadItem = css`
+  text-align: center;
+
+  @media screen and (min-width: ${BreakPoints.TABLET}) {
+    text-align: left;
+    
+    &:not(:last-of-type) {
+      padding-right: 84px;
+    }
+  }
+`;
+
+export const Head = styled.div`
+  display: flex;
+  padding: 0 24px;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: ${Colors.SMOKE};
+`;
+
+export const THead = styled.div`
+  ${HeadItem}
+  flex: 1;
+  justify-content: center;
+`;
+
+export const THeadInfo = styled.div`
+  ${HeadItem}
+  flex: 1;
+  display: none;
+
+  @media screen and (min-width: ${BreakPoints.TABLET}) {
+    display: block;
+  }
 `;
 
 export const Footer = styled.footer`

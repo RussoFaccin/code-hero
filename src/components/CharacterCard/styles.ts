@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export const Card = styled(Link)`
   display: flex;
+  height: 72px;
   padding: 12px 16px;
   background-color: ${Colors.WHITE};
   box-shadow: 0 0 5px ${Colors.LIGHT_SMOKE};
@@ -16,6 +17,7 @@ export const Card = styled(Link)`
 
   @media screen and (min-width: ${BreakPoints.TABLET}) {
     padding: 20px 24px;
+    height: 88px;
   }
 `;
 
@@ -24,7 +26,7 @@ const CardItem = css`
   display: flex;
   align-items: center;
 
-  &:not(last-of-type) {
+  &:not(:last-of-type) {
     padding-right: 84px;
   }
 `;
@@ -61,5 +63,10 @@ export const Info = styled.div`
     font-weight: 400;
     font-size: 1.4rem;
     color: ${Colors.DARK_SMOKE};
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 `;
