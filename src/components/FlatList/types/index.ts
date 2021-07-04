@@ -1,4 +1,3 @@
-import { RecordAndTuplePluginOptions } from "@babel/parser";
 import React from "react";
 
 export interface Props {
