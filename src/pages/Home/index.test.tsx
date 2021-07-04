@@ -1,5 +1,6 @@
 import React from "react";
 import { render, RenderResult } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { AppProvider } from "contexts";
 import Home from "./";
 
@@ -8,9 +9,11 @@ describe("Home Page", () => {
 
   beforeEach(() => {
     utils = render(
-      <AppProvider>
-        <Home />
-      </AppProvider>
+      <MemoryRouter>
+        <AppProvider>
+          <Home />
+        </AppProvider>
+      </MemoryRouter>
     );
   });
 
