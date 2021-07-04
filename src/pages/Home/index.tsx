@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Api, Data } from "services";
 import { useAppContext } from "contexts";
-import { CharacterCard, FlatList, Header, Pagination } from "components";
+import { CharacterCard, FlatList, Header, Loading, Pagination } from "components";
 import {
   Button,
   CharacterList,
@@ -34,13 +34,17 @@ const Home = (): JSX.Element => {
   const [qtyPages, setQtyPages] = useState(1);
   const [inputValue, setInputValue] = useState("");
   const [activeQuery, setActiveQuery] = useState<"all" | "character">("all");
+  const [isLoading, setLoading] = useState(false);
 
   /**
    * Get data from API
    */
   const getData = useCallback(async () => {
+    setLoading(true);
+    
     const { results, total } = await Api.getCharacters(limit, offset);
 
+    setLoading(false);
     setData(Data.formatData(results));
     setQtyPages(getPagesTotal(total));
   }, [limit, offset]);
@@ -59,12 +63,14 @@ const Home = (): JSX.Element => {
    * Get character data
    */
   const getCharacter = useCallback(async () => {
+    setLoading(true);
     const { results, total } = await Api.getCharacter(
       inputValue,
       limit,
       offset
     );
 
+    setLoading(false);
     setData(Data.formatData(results));
     setQtyPages(getPagesTotal(total));
   }, [inputValue, limit, offset]);
@@ -154,6 +160,7 @@ const Home = (): JSX.Element => {
           onChange={handlePageChange}
         />
       </Footer>
+      <Loading isActive={isLoading} />
     </>
   );
 };
