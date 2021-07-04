@@ -1,4 +1,4 @@
-import { Character } from "shared/types";
+import { Character, Comic } from "shared/types";
 
 export const Data = {
   _formatItems(entries: []): string[] {
@@ -10,7 +10,7 @@ export const Data = {
   },
 
   formatData(data: any[]): Character[] {
-    if (data.length === 0) {
+    if (!data || data.length === 0) {
       return [];
     }
 
@@ -22,6 +22,23 @@ export const Data = {
         series: this._formatItems(item.series.items),
         events: this._formatItems(item.events.items),
       };
+    });
+
+    return tmpList;
+  },
+
+  formatComicData(data: any[]): Comic[] {
+    if (!data || data.length === 0) {
+      return [];
+    }
+
+    const tmpList: Comic[] = data.map((item: any) => {
+      return {
+        id: item.id,
+        title: item.title,
+        thumb: `${item.thumbnail.path}.${item.thumbnail.extension}`,
+        url: item.urls[0].url,
+      } as Comic;
     });
 
     return tmpList;
