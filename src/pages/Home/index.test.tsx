@@ -1,12 +1,17 @@
 import React from "react";
 import { render, RenderResult } from "@testing-library/react";
+import { AppProvider } from "contexts";
 import Home from "./";
 
 describe("Home Page", () => {
   let utils: RenderResult;
 
   beforeEach(() => {
-    utils = render(<Home />);
+    utils = render(
+      <AppProvider>
+        <Home />
+      </AppProvider>
+    );
   });
 
   it("Should render the page", () => {

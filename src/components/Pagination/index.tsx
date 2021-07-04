@@ -9,7 +9,11 @@ import {
 /**
  * Pagination - Component
  */
-const Pagination = ({ qtyItems, limit, onChange }: Props): JSX.Element => {
+const Pagination = ({ qtyItems, limit, onChange }: Props): JSX.Element | null => {
+  if (qtyItems <= 1) {
+    return null;
+  }
+
   const [offset, setOffset] = useState(0);
   const [currPage, setCurrPage] = useState(1);
 
