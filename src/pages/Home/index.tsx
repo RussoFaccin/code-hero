@@ -155,7 +155,6 @@ const Home = (): JSX.Element => {
       <Footer>
         <Pagination
           qtyItems={qtyPages}
-          limit={3}
           activePage={currPage}
           onChange={handlePageChange}
         />

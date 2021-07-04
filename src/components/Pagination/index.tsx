@@ -11,7 +11,6 @@ import {
  */
 const Pagination = ({
   qtyItems,
-  limit,
   activePage = 1,
   onChange,
 }: Props): JSX.Element | null => {
@@ -19,6 +18,7 @@ const Pagination = ({
     return null;
   }
 
+  const [limit, setLimit] = useState(3);
   const [offset, setOffset] = useState(0);
   const [currPage, setCurrPage] = useState(activePage);
 
@@ -42,11 +42,20 @@ const Pagination = ({
     return getStart() + limit;
   }, [getStart, limit]);
 
-  const setPage = useCallback((pageNumber: number) => {
-    setCurrPage(pageNumber);
-    setOffset(Math.ceil(pageNumber / limit) - 1);
-    onChange(pageNumber);
-  }, []);
+  const setPage = useCallback(
+    (pageNumber: number) => {
+      setCurrPage(pageNumber);
+      setOffset(Math.ceil(pageNumber / limit) - 1);
+      onChange(pageNumber);
+    },
+    [limit]
+  );
+
+  const calculateLimit = useCallback(() => {
+    const tmpLimit = window.innerWidth >= 768 ? 5 : 3;
+    setLimit(tmpLimit);
+    setOffset(Math.ceil(currPage / tmpLimit) - 1);
+  }, [currPage]);
 
   const pages = fillPages();
 
@@ -64,28 +73,63 @@ const Pagination = ({
   });
 
   useEffect(() => {
+    calculateLimit();
+    window.addEventListener("resize", calculateLimit)
+  }, [limit]);
+
+  useEffect(() => {
     setCurrPage(activePage);
   }, [activePage]);
 
+  /**
+   * Left buttons group
+   */
+  const LefButtons = () => {
+    if (currPage < 2) {
+      return null;
+    }
+
+    return (
+      <>
+        <Button onClick={() => setPage(1)}>
+          <DoubleArrow />
+          <Label>First</Label>
+        </Button>
+        <Button onClick={() => setPage(currPage - 1)}>
+          <Arrow />
+          <Label>Previous</Label>
+        </Button>
+      </>
+    );
+  };
+
+  /**
+   * Right buttons group
+   */
+  const RightButtons = () => {
+    if (currPage > pages[pages.length - 2]) {
+      return null;
+    }
+
+    return (
+      <>
+        <Button direction="right" onClick={() => setPage(currPage + 1)}>
+          <Arrow />
+          <Label>Next</Label>
+        </Button>
+        <Button direction="right">
+          <DoubleArrow onClick={() => setPage(pages[pages.length - 1])} />
+          <Label>Last</Label>
+        </Button>
+      </>
+    );
+  };
+
   return (
     <Container>
-      <Button>
-        <DoubleArrow />
-        <Label>First</Label>
-      </Button>
-      <Button onClick={() => setPage(currPage - 1)}>
-        <Arrow />
-        <Label>Previous</Label>
-      </Button>
+      <LefButtons />
       {pageList}
-      <Button direction="right" onClick={() => setPage(currPage + 1)}>
-        <Arrow />
-        <Label>Next</Label>
-      </Button>
-      <Button direction="right">
-        <DoubleArrow />
-        <Label>Last</Label>
-      </Button>
+      <RightButtons />
     </Container>
   );
 };
