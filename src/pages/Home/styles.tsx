@@ -150,3 +150,14 @@ export const Footer = styled.footer`
   justify-content: center;
   align-items: center;
 `;
+
+export const Message = styled.div`
+  padding: 20px;
+  background-color: ${Colors.WHITE};
+  color: ${Colors.DARK_SMOKE};
+  border-radius: 4px;
+  box-shadow: 0 0 5px ${Colors.LIGHT_SMOKE};
+  font-family: 'PT Sans Caption';
+  font-size: 3.2rem;
+  font-weight: bold;
+`;

@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Props } from "./types";
 
-const FlatList = ({ data, renderItem }: Props) => {
+const FlatList = ({ data, renderItem, fallBack = null }: Props) => {
   if (!data || !renderItem || data.length === 0) {
-    return null;
+    return fallBack;
   }
 
   const tmpList: JSX.Element[] = data.map(renderItem);
