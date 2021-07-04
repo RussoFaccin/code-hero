@@ -15,7 +15,7 @@ const Pagination = ({
   activePage = 1,
   onChange,
 }: Props): JSX.Element | null => {
-  if (qtyItems <= 1) {
+  if (!qtyItems || qtyItems <= 1) {
     return null;
   }
 

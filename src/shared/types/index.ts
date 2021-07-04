@@ -5,3 +5,9 @@ export interface Character {
   series: string[];
   events: string[];
 }
+
+export interface Comic {
+  title: string;
+  thumb: string;
+  url: string
+}
