@@ -1,4 +1,6 @@
-import * as React from "react";
+import React, { useCallback } from "react";
+import { useHistory } from "react-router-dom";
+import { useAppContext } from "contexts";
 import {
   ActionBox,
   BrandLink,
@@ -13,9 +15,21 @@ import {
 } from "./styles";
 
 const Header = (): JSX.Element => {
+  const history = useHistory();
+  const {
+    actions: { setCurrPage, setOffset },
+  } = useAppContext();
+
+  const goToHome = useCallback((evt) => {
+    evt.preventDefault();
+    setCurrPage(1);
+    setOffset(0);
+    history.push("/");
+  }, []);
+
   return (
     <Container>
-      <BrandLink to="/">
+      <BrandLink onClick={goToHome} to="/">
         <Logo />
         <BrandHeading>Objective</BrandHeading>
         <BrandSubHeading>
@@ -23,11 +37,11 @@ const Header = (): JSX.Element => {
         </BrandSubHeading>
       </BrandLink>
       <ActionBox>
-          <Info>
-              <User>Rodrigo Russo</User>
-              <Description>Teste de Front-end</Description>
-          </Info>
-          <Icon>CB</Icon>
+        <Info>
+          <User>Rodrigo Russo</User>
+          <Description>Teste de Front-end</Description>
+        </Info>
+        <Icon>CB</Icon>
       </ActionBox>
     </Container>
   );

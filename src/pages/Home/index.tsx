@@ -27,13 +27,13 @@ const Home = (): JSX.Element => {
     data,
     currPage,
     limit,
-    actions: { setData, setCurrPage },
+    offset,
+    actions: { setData, setCurrPage, setOffset },
   } = useAppContext();
 
   const [qtyPages, setQtyPages] = useState(1);
   const [inputValue, setInputValue] = useState("");
   const [activeQuery, setActiveQuery] = useState<"all" | "character">("all");
-  const [offset, setOffset] = useState(0);
 
   /**
    * Get data from API
@@ -67,7 +67,7 @@ const Home = (): JSX.Element => {
 
     setData(Data.formatData(results));
     setQtyPages(getPagesTotal(total));
-  }, [inputValue, limit, offset, currPage]);
+  }, [inputValue, limit, offset]);
 
   /**
    * Create Character List
