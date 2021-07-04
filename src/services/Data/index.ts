@@ -9,7 +9,7 @@ export const Data = {
     return tmpList;
   },
 
-  formatData(data = []): Character[] {
+  formatData(data: any[]): Character[] {
     if (data.length === 0) {
       return [];
     }

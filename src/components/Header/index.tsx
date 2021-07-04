@@ -15,7 +15,7 @@ import {
 const Header = (): JSX.Element => {
   return (
     <Container>
-      <BrandLink href="#">
+      <BrandLink to="/">
         <Logo />
         <BrandHeading>Objective</BrandHeading>
         <BrandSubHeading>
