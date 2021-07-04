@@ -1,7 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Api, Data } from "services";
 import { useAppContext } from "contexts";
-import { CharacterCard, FlatList, Header, Loading, Pagination } from "components";
+import {
+  CharacterCard,
+  FlatList,
+  Header,
+  Loading,
+  Pagination,
+} from "components";
 import {
   Button,
   CharacterList,
@@ -13,6 +19,7 @@ import {
   InputContainer,
   Label,
   Main,
+  Message,
   Search,
   THead,
   THeadInfo,
@@ -41,7 +48,7 @@ const Home = (): JSX.Element => {
    */
   const getData = useCallback(async () => {
     setLoading(true);
-    
+
     const { results, total } = await Api.getCharacters(limit, offset);
 
     setLoading(false);
@@ -148,7 +155,11 @@ const Home = (): JSX.Element => {
             <THeadInfo>Séries</THeadInfo>
             <THeadInfo>Eventos</THeadInfo>
           </Head>
-          <FlatList data={data} renderItem={renderCharacterCard} />
+          <FlatList
+            data={data}
+            renderItem={renderCharacterCard}
+            fallBack={<Message>Informações não encontradas</Message>}
+          />
         </CharacterList>
       </Main>
       <Footer>
