@@ -1,7 +1,12 @@
 import React from "react";
 import { Container, Scrim, Spinner } from "./styles";
+import { Props } from "./types";
 
-const Loading = (): JSX.Element => {
+const Loading = ({ isActive = false }: Props): JSX.Element | null => {
+  if (!isActive) {
+    return null;
+  }
+
   return (
     <Scrim>
       <Container>
