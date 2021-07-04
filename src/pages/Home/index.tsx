@@ -135,7 +135,6 @@ const Home = (): JSX.Element => {
                 value={inputValue}
                 onChange={handleChange}
                 placeholder="Search"
-                required
               />
               <Button>
                 <IconSearch />
