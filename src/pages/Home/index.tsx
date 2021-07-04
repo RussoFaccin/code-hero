@@ -33,19 +33,17 @@ const Home = (): JSX.Element => {
   const [qtyPages, setQtyPages] = useState(1);
   const [inputValue, setInputValue] = useState("");
   const [activeQuery, setActiveQuery] = useState<"all" | "character">("all");
+  const [offset, setOffset] = useState(0);
 
   /**
    * Get data from API
    */
   const getData = useCallback(async () => {
-    const { results, total } = await Api.getCharacters(
-      limit,
-      (currPage - 1) * limit
-    );
+    const { results, total } = await Api.getCharacters(limit, offset);
 
     setData(Data.formatData(results));
     setQtyPages(getPagesTotal(total));
-  }, [limit, currPage]);
+  }, [limit, offset]);
 
   /**
    * Calculate pages total
@@ -57,15 +55,19 @@ const Home = (): JSX.Element => {
     [limit]
   );
 
+  /**
+   * Get character data
+   */
   const getCharacter = useCallback(async () => {
     const { results, total } = await Api.getCharacter(
       inputValue,
       limit,
-      (currPage - 1) * limit
+      offset
     );
+
     setData(Data.formatData(results));
     setQtyPages(getPagesTotal(total));
-  }, [inputValue, limit, currPage]);
+  }, [inputValue, limit, offset, currPage]);
 
   /**
    * Create Character List
@@ -82,6 +84,8 @@ const Home = (): JSX.Element => {
       evt.preventDefault();
 
       if (evt.target.checkValidity()) {
+        setCurrPage(1);
+        setOffset(0);
         setActiveQuery("character");
         getCharacter();
       }
@@ -96,6 +100,14 @@ const Home = (): JSX.Element => {
     setInputValue(evt.target.value);
   }, []);
 
+  const handlePageChange = useCallback(
+    (page: number) => {
+      setCurrPage(page);
+      setOffset((page - 1) * limit);
+    },
+    [setCurrPage, limit]
+  );
+
   useEffect(() => {
     if (activeQuery === "all") {
       getData();
@@ -108,7 +120,7 @@ const Home = (): JSX.Element => {
     <>
       <Header />
       <Main>
-        <Search onSubmit={handleSubmit} noValidate>
+        <Search onSubmit={handleSubmit}>
           <Heading>Busca de personagens</Heading>
           <Container>
             <Label htmlFor="fld_search">Nome do personagem</Label>
@@ -135,7 +147,12 @@ const Home = (): JSX.Element => {
         </CharacterList>
       </Main>
       <Footer>
-        <Pagination qtyItems={qtyPages} limit={3} onChange={setCurrPage} />
+        <Pagination
+          qtyItems={qtyPages}
+          limit={3}
+          activePage={currPage}
+          onChange={handlePageChange}
+        />
       </Footer>
     </>
   );
