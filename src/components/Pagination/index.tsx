@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { Props } from "./types";
 import { Button, Container, Label } from "./styles";
 import {
@@ -9,25 +9,32 @@ import {
 /**
  * Pagination - Component
  */
-const Pagination = ({ qtyItems, limit, onChange }: Props): JSX.Element | null => {
+const Pagination = ({
+  qtyItems,
+  limit,
+  activePage = 1,
+  onChange,
+}: Props): JSX.Element | null => {
   if (qtyItems <= 1) {
     return null;
   }
 
   const [offset, setOffset] = useState(0);
-  const [currPage, setCurrPage] = useState(1);
+  const [currPage, setCurrPage] = useState(activePage);
 
   const fillPages = useCallback(() => {
-      const pageList = Array(qtyItems).fill("").map((item, index) => index + 1);
-      
-      return pageList;
+    const pageList = Array(qtyItems)
+      .fill("")
+      .map((item, index) => index + 1);
+
+    return pageList;
   }, [qtyItems]);
-  
+
   const getStart = useCallback(() => {
-      if (offset * limit < 0) {
-          return 0;
-      }
-      
+    if (offset * limit < 0) {
+      return 0;
+    }
+
     return offset * limit;
   }, [offset, limit]);
 
@@ -55,6 +62,10 @@ const Pagination = ({ qtyItems, limit, onChange }: Props): JSX.Element | null =>
       </Button>
     );
   });
+
+  useEffect(() => {
+    setCurrPage(activePage);
+  }, [activePage]);
 
   return (
     <Container>
