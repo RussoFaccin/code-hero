@@ -7,8 +7,9 @@ describe("Pagination component", () => {
   const actionChange = jest.fn();
 
   beforeEach(() => {
+    global.innerWidth = 500;
     utils = render(
-      <Pagination qtyItems={10} limit={3} onChange={actionChange} />
+      <Pagination activePage={1} qtyItems={10} onChange={actionChange} />
     );
   });
   it("Should render the component", () => {
