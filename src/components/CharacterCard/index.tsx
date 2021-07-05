@@ -2,7 +2,7 @@ import React from "react";
 import { Props } from "./types";
 import { Card, Info, Name, Person, Thumb } from "./styles";
 
-const CharacterCard = ({ character }: Props) => {
+const CharacterCard = ({ character }: Props): JSX.Element | null => {
   if (!character) {
     return null;
   }
