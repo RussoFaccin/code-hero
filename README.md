@@ -6,7 +6,7 @@ Repositório:
 https://github.com/RussoFaccin/code-hero.git
 
 Demonstração:
-https://cinejump.netlify.app/
+https://russofaccin-code-hero.netlify.app/
 
 ![Cinejump!](/docs/images/code-hero.png)
 
