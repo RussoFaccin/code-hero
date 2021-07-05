@@ -1,7 +1,11 @@
 import * as React from "react";
 import { Props } from "./types";
 
-const FlatList = ({ data, renderItem, fallBack = null }: Props) => {
+const FlatList = ({
+  data,
+  renderItem,
+  fallBack = null,
+}: Props): JSX.Element | null => {
   if (!data || !renderItem || data.length === 0) {
     return fallBack;
   }
