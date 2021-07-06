@@ -48,7 +48,7 @@ BROWSER=none
 **Execução**
 
 ```
-$: npm run dev
+$: npm start
 ```
 
 **Publicação**
